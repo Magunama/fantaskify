@@ -1,0 +1,13 @@
+<SideMenu>
+    ScrollView:
+        MDList:
+            OneLineListItem:
+                text: "Today"
+                on_press:
+                    root.nav_drawer.set_state("close")
+                    root.screen_manager.current = "Today"
+            OneLineListItem:
+                text: "Not Today"
+                on_press:
+                    root.nav_drawer.set_state("close")
+                    root.screen_manager.current = "NotToday"
