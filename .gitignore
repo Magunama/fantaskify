@@ -1,3 +1,6 @@
 .idea/
 venv/
 __pycache__/
+tests/
+.buildozer/
+bin/

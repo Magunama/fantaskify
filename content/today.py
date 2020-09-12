@@ -1,9 +1,10 @@
-from kivymd.uix.boxlayout import BoxLayout
-from kivy.uix.scrollview import ScrollView
+from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.screen import MDScreen
+from kivy.properties import ObjectProperty
+from content.templates.buttons import NewTaskButton
 
 
-class TodayBar(BoxLayout):
+class TodayBar(MDBoxLayout):
     def menu_click(self, app):
         side_menu = app.root.ids.side_menu
         side_menu.open()
@@ -12,7 +13,7 @@ class TodayBar(BoxLayout):
         pass
 
 
-class TodayBox(ScrollView):
+class TodayBox(MDBoxLayout):
     pass
 
 

@@ -1,26 +1,27 @@
+#:include content/templates/buttons.kv
+
 <TodayBar>
     size_hint: 1, 0.1
+    pos_hint: {"y": 0.9}
     orientation: "vertical"
     MDToolbar:
         title: "Today"
         left_action_items: [["menu", lambda x: root.menu_click(app)]]
-        right_action_items: [["card-search", lambda x: root.other()], ["dots-vertical", lambda x: root.other()]]
+        right_action_items: [["magnify", lambda x: root.other()], ["dots-vertical", lambda x: root.other()]]
 
 <TodayBox>
-    do_scroll_x: False
-    do_scroll_y: True
-
-    MDLabel:
-        halign: "center"
-        size_hint_y: None
-        height: self.texture_size[1]
-        padding: 10, 10
-        text:
-            'cool entry right here\n' * 100
+    size_hint: 1, 0.9
+    ScrollView:
+        do_scroll_x: False
+        do_scroll_y: True
+        MDList:
+            id: list
 
 <Today>
     name: "Today"
-    MDBoxLayout:
-        orientation: "vertical"
+    MDFloatLayout:
+        md_bg_color: app.theme_cls.bg_dark
         TodayBar:
         TodayBox:
+            id: container
+        NewTaskButton:
