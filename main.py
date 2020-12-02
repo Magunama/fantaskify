@@ -1,8 +1,10 @@
+from kivy.core.window import Window
+from kivy.metrics import dp
 from kivymd.app import MDApp
 from kivymd.uix.screen import MDScreen
-from kivymd.uix.list import OneLineListItem
-from content.today import Today, TodayBox
+from content.templates.pages import Notes, Today
 from content.side_menu import SideMenu
+from content.database import database
 
 
 class Home(MDScreen):
@@ -10,20 +12,26 @@ class Home(MDScreen):
 
 
 class MainApp(MDApp):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.db = database.db
+
     def build(self):
+        Window.softinput_mode = "pan"
+        # Window.size = 1080, 2160
+        # Window.size = 540, 1080
         self.theme_cls.primary_palette = "Purple"
         self.theme_cls.theme_style = "Dark"
         return Home()
 
     def on_start(self):
+        screen_manager = self.root.ids.screen_manager
+        screen_manager.current_screen.update()
         # self.fps_monitor_start()
-        today = self.root.ids.today
-        today_box = today.ids.container
-        today_list = today_box.ids.list
-        for i in range(0, 20):
-            item = OneLineListItem(text=f"Single-line item {i}")
-            today_list.add_widget(item)
-        pass
+        print("Started!")
+
+    def on_stop(self):
+        print("Stopped!")
 
 
 MainApp().run()

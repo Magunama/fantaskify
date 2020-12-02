@@ -1,0 +1,50 @@
+#:include content/templates/buttons.kv
+#:include content/objects/note.kv
+#:include content/objects/task.kv
+
+<PageBar>
+    size_hint: 1, 0.1
+    pos_hint: {"y": 0.9}
+    orientation: "vertical"
+    MDToolbar:
+        title: root.title
+        left_action_items: [["menu", lambda x: root.menu_click(app)]]
+        right_action_items: [["magnify", lambda x: root.other()], ["dots-vertical", lambda x: root.other()]]
+
+<PageBox>
+    size_hint: 1, 0.9
+    ScrollView:
+        do_scroll_x: False
+        do_scroll_y: True
+        MDList:
+            id: list
+
+<Notes>
+    name: "Notes"
+    MDFloatLayout:
+        md_bg_color: app.theme_cls.bg_dark
+        PageBar:
+            title: "Notes"
+        PageBox:
+            id: container
+        NewNoteTaskButton:
+
+<Today>
+    name: "Today"
+    MDFloatLayout:
+        md_bg_color: app.theme_cls.bg_dark
+        PageBar:
+            title: "Today"
+        PageBox:
+            id: container
+        NewNoteTaskButton:
+
+<Tasks>
+    name: "Tasks"
+    MDFloatLayout:
+        md_bg_color: app.theme_cls.bg_dark
+        PageBar:
+            title: "Tasks"
+        PageBox:
+            id: container
+        NewNoteTaskButton:

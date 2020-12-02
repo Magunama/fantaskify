@@ -1,0 +1,16 @@
+<Note>:
+    delete_button: delete_button
+    md_bg_color: app.theme_cls.bg_dark
+    size_hint_y: None
+    height: content.height
+
+    TwoLineAvatarIconListItem:
+        id: content
+        text: root.title
+        secondary_text: root.description
+        _no_ripple_effect: True
+        divider: None
+        IconRightWidget:
+            id: delete_button
+            icon: "delete-outline"
+            on_release: root.delete()

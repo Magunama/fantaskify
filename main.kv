@@ -1,18 +1,18 @@
-#:include content/today.kv
+#:include content/templates/pages.kv
 #:include content/side_menu.kv
 
 <Home>
     NavigationLayout:
         ScreenManager:
             id: screen_manager
+            Notes:
+                id: notes
             Today:
                 id: today
-            MDScreen:
-                name: "NotToday"
-                MDLabel:
-                    text: "Not Today Screen"
-                    halign: "center"
+            Tasks:
+                id: tasks
         MDNavigationDrawer:
+            md_bg_color: app.theme_cls.bg_dark
             id: nav_drawer
             SideMenu:
                 id: side_menu

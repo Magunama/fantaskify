@@ -1,0 +1,94 @@
+#:include content/objects/task.kv
+#:include content/objects/note.kv
+
+<NewNoteDialogScreen>
+    md_bg_color: app.theme_cls.bg_dark
+    orientation: "vertical"
+    size_hint_y: None
+    height: "200dp"
+    font_size: "30sp"
+
+    MDTextField:
+        id: title_field
+        size_hint: 0.6, 0.3
+        pos_hint: {"x": 0.05, "y": 0.6}
+        required: True
+        hint_text: "Task title"
+        helper_text: "Required"
+        helper_text_mode: "on_error"
+        # active_line: False
+        color_mode: "primary"
+        mode: "fill"
+        on_text_validate: root.text_field_validate(self)
+    MDTextField:
+        id: desc_field
+        size_hint: 0.5, 0.4
+        pos_hint: {"x": 0.05, "y": 0.1}
+        multiline: True
+        hint_text: "Task description"
+        active_line: False
+        color_mode: "primary"
+        mode: "fill"
+        # on_text_validate: root.text_field_validate()
+    MDIconButton:
+        icon: "send"
+        text_color: 1, 1, 1, 1
+        md_bg_color: app.theme_cls.primary_color
+        pos_hint: {"x": 0.8, "y": 0.1}
+        on_release: root.confirm_button_release()
+
+<NewTaskDialogScreen>
+    md_bg_color: app.theme_cls.bg_dark
+    orientation: "vertical"
+    size_hint_y: None
+    height: "200dp"
+    font_size: "30sp"
+
+    MDTextField:
+        id: title_field
+        size_hint: 0.6, 0.3
+        pos_hint: {"x": 0.05, "y": 0.6}
+        required: True
+        hint_text: "Task title"
+        helper_text: "Required"
+        helper_text_mode: "on_error"
+        # active_line: False
+        color_mode: "primary"
+        mode: "fill"
+        on_text_validate: root.text_field_validate(self)
+    MDRectangleFlatButton:
+        id: date_button
+        text: "Date"
+        size_hint: 0.3, 0.2
+        pos_hint: {"x": 0.05, "y": 0.3}
+        on_release: root.show_date_picker()
+    MDRectangleFlatButton:
+        id: reset_date_button
+        opacity: 0
+        text: "x"
+        text_color: 1, 0, 0, 1
+        size_hint: 0.05, 0.2
+        pos_hint: {"x": 0.3, "y": 0.3}
+        disabled: True
+        on_release: root.reset_date_picker()
+    MDRectangleFlatButton:
+        id: time_button
+        text: "Time"
+        size_hint: 0.2, 0.2
+        pos_hint: {"x": 0.40, "y": 0.3}
+        on_release: root.show_time_picker()
+    MDRectangleFlatButton:
+        id: reset_time_button
+        opacity: 0
+        text: "x"
+        text_color: 1, 0, 0, 1
+        size_hint: 0.05, 0.2
+        pos_hint: {"x": 0.55, "y": 0.3}
+        disabled: True
+        on_release: root.reset_time_picker()
+    MDIconButton:
+        icon: "send"
+        text_color: 1, 1, 1, 1
+        md_bg_color: app.theme_cls.primary_color
+        pos_hint: {"x": 0.8, "y": 0.1}
+        on_release: root.confirm_button_release()

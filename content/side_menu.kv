@@ -1,14 +1,52 @@
 <SideMenu>
-    md_bg_color: app.theme_cls.bg_dark
-    ScrollView:
-        MDList:
-            OneLineListItem:
-                text: "Today"
-                on_press:
-                    root.nav_drawer.set_state("close")
-                    root.screen_manager.current = "Today"
-            OneLineListItem:
-                text: "Not Today"
-                on_press:
-                    root.nav_drawer.set_state("close")
-                    root.screen_manager.current = "NotToday"
+    BoxLayout:
+        orientation: "vertical"
+        padding: "8dp"
+        spacing: "8dp"
+
+        AnchorLayout:
+            pos_hint: {"y": 0.9}
+            anchor_x: "left"
+            size_hint_y: None
+            height: avatar.height
+
+            Image:
+                id: avatar
+                size_hint: None, None
+                size: "60dp", "60dp"
+                source: "content/images/logo.png"
+
+        MDLabel:
+            text: "FanTaskify"
+            theme_text_color: "Primary"
+            font_style: "Button"
+            size_hint_y: None
+            height: self.texture_size[1]
+
+        MDLabel:
+            text: "robert.ciama00@e-uvt.ro"
+            theme_text_color: "Primary"
+            font_style: "Caption"
+            size_hint_y: None
+            height: self.texture_size[1]
+
+        MDSeparator:
+            size_hint_y: 0.01
+            color: app.theme_cls.primary_color
+
+        ScrollView:
+            MDList:
+                OneLineListItem:
+                    text: "Notes"
+                    on_press:
+                        root.switch_screen("Notes")
+
+                OneLineListItem:
+                    text: "Today's Tasks"
+                    on_press:
+                        root.switch_screen("Today")
+
+                OneLineListItem:
+                    text: "All Tasks"
+                    on_press:
+                        root.switch_screen("Tasks")
