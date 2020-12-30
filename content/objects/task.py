@@ -20,7 +20,7 @@ class Task(MDCard):
         self.deadline = kw.get("deadline")
         deadline_box = self.deadline_box
         if self.deadline:
-            deadline_box.label = self.deadline.strftime("%Y-%m-%d %H:%M")
+            deadline_box.text = self.deadline.strftime("%Y-%m-%d %H:%M")
             deadline_box.icon = "calendar"
 
             # make radio icon red if task is overdue
@@ -53,8 +53,9 @@ class Task(MDCard):
             caller=self.menu_button,
             items=menu_items,
             width_mult=4,
-            callback=self.menu_callback
         )
+        self.menu.bind(on_release=self.menu_release)
+        self.menu.bind(on_dismiss=self.menu_dismiss)
 
     title = StringProperty()
 
@@ -89,12 +90,26 @@ class Task(MDCard):
         # todo: record completion
         self.destroy()
 
-    def menu_callback(self, instance):
-        if instance.icon == "delete-outline":
-            if instance.theme_text_color == "Custom":
+    def menu_release(self, instance, instance_menu_item):
+        if not hasattr(instance_menu_item, "icon"):
+            return
+        if instance_menu_item.icon == "delete-outline":
+            # upon deletion confirmation, purge task
+            if instance_menu_item.theme_text_color == "Custom":
                 self.menu.dismiss()
                 self.destroy()
+            # make label and icon red for confirmation
             else:
-                instance.theme_text_color = "Custom"
-                instance.text_color = 1, 0, 0, 1
-                instance.text = "Confirm?"
+                instance_menu_item.theme_text_color = "Custom"
+                instance_menu_item.text_color = 1, 0, 0, 1
+                instance_menu_item.text = "Confirm?"
+
+    def menu_dismiss(self, instance):
+        # operation cancelled, restore colors if theme changed
+        menu_box = instance.menu.ids.box
+        menu_items = menu_box.children
+        for item in menu_items:
+            if item.theme_text_color == "Custom":
+                menu_box.clear_widgets()
+                instance.create_menu_items()
+                return

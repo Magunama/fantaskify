@@ -17,7 +17,10 @@ class Note(MDCard):
     @db_session
     def insert_into_db(self):
         app = App.get_running_app()
-        app.db.Notes(title=self.title, description=self.description)
+        n = app.db.Notes(title=self.title, description=self.description)
+        # obtain new db id
+        app.db.commit()
+        self.db_id = n.id
 
     @db_session
     def remove_from_db(self):

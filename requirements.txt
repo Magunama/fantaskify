@@ -1,3 +1,4 @@
-cython
 kivy
-kivymd
+git+https://github.com/kivymd/KivyMD.git
+psycopg2
+pony
