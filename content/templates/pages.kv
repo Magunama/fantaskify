@@ -1,50 +1,131 @@
 #:include content/templates/buttons.kv
 #:include content/objects/note.kv
 #:include content/objects/task.kv
+#:include content/objects/category.kv
+
+
+<RightPageMenuItemContent>
+    disabled: True
+
+    MDIconButton:
+        icon: "menu-right"
+        user_font_size: "30sp"
+        pos_hint: {"center_y": .5}
+
+
+<SearchTab>
+    results_box: results_box
+    search_bar: search_bar
+    MDBoxLayout:
+        orientation: "vertical"
+        MDBoxLayout:
+            adaptive_height: True
+            MDIconButton:
+                icon: "magnify"
+            MDTextField:
+                id: search_bar
+                hint_text: root.search_bar_hint
+                on_text: root.update_content()
+        ScrollView:
+            MDBoxLayout:
+                id: results_box
+                adaptive_height: True
+
+
+<SearchScreen>
+    MDBoxLayout:
+        orientation: "vertical"
+        MDToolbar:
+            title: "Search"
+            pos_hint: {"top": 1}
+            md_bg_color: app.theme_cls.primary_color
+            background_palette: "Primary"
+            background_hue: "500"
+            elevation: 10
+            left_action_items: [["arrow-left", lambda x: root.back_to_home_screen()]]
+        MDTabs:
+            id: tabs
+            allow_stretch: False
+            on_tab_switch: root.on_tab_switch(*args)
+
+
+<SettingsScreen>
+    MDToolbar:
+        pos_hint: {"top": 1}
+        title: "Settings"
+        md_bg_color: app.theme_cls.primary_color
+        background_palette: "Primary"
+        background_hue: "500"
+        elevation: 10
+        left_action_items: [["arrow-left", lambda x: root.back_to_home_screen()]]
+    MDFloatLayout:
+        MDRectangleFlatIconButton:
+            line_color: 0, 0, 0, 0
+            pos_hint: {"x": 0.05, "top": 0.8}
+            icon: "palette-outline"
+            text: "Change color theme"
+            on_release: root.show_theme_picker()
+
 
 <PageBar>
-    size_hint: 1, 0.1
-    pos_hint: {"y": 0.9}
-    orientation: "vertical"
-    MDToolbar:
-        title: root.title
-        left_action_items: [["menu", lambda x: root.menu_click(app)]]
-        right_action_items: [["magnify", lambda x: root.other()], ["dots-vertical", lambda x: root.other()]]
+    md_bg_color: app.theme_cls.primary_color
+    pos_hint: {"top": 1}
+    left_action_items: [["menu", lambda x: root.side_menu_click(app)]]
+    right_action_items: [["magnify", lambda x: root.search()], ["dots-vertical", lambda x: root.page_menu_open()]]
 
-<PageBox>
-    size_hint: 1, 0.9
+<NotesPageBox>
     ScrollView:
         do_scroll_x: False
         do_scroll_y: True
         MDList:
             id: list
 
+<TasksPageBox>
+    no_category_list: no_category_list
+    category_box: category_box
+
+    ScrollView:
+        MDBoxLayout:
+            orientation: "vertical"
+            adaptive_height: True
+            MDRectangleFlatIconButton:
+                id: icon_button
+                pos_hint: {"center_x": .5}
+                icon: "folder-plus-outline"
+                line_color: 0, 0, 0, 0
+                _no_ripple_effect: True
+                text: "Create new category"
+                on_release: root.create_new_category()
+            MDList:
+                id: no_category_list
+            MDBoxLayout:
+                id: category_box
+                orientation: "vertical"
+                adaptive_height: True
+
 <Notes>
     name: "Notes"
     MDFloatLayout:
+        orientation: "vertical"
         md_bg_color: app.theme_cls.bg_dark
-        PageBar:
-            title: "Notes"
-        PageBox:
+        NotesPageBox:
             id: container
         NewNoteTaskButton:
 
 <Today>
+    container: container
     name: "Today"
     MDFloatLayout:
         md_bg_color: app.theme_cls.bg_dark
-        PageBar:
-            title: "Today"
-        PageBox:
+        TasksPageBox:
             id: container
         NewNoteTaskButton:
 
 <Tasks>
+    container: container
     name: "Tasks"
     MDFloatLayout:
         md_bg_color: app.theme_cls.bg_dark
-        PageBar:
-            title: "Tasks"
-        PageBox:
+        TasksPageBox:
             id: container
         NewNoteTaskButton:

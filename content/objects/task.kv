@@ -1,41 +1,34 @@
 <Task>:
-    content: content
     right_container: right_container
     menu_button: menu_button
     radio_icon: radio_icon
-
-    orientation: "vertical"
-    md_bg_color: app.theme_cls.bg_dark
     deadline_box: deadline_box
 
-    OneLineAvatarIconListItem:
-        id: content
-        text: root.title
-        _no_ripple_effect: True
-        divider: None
-        # on_size:
-            # self.ids._right_container.width = right_container.width
-            # self.ids._right_container.x = right_container.width
+    text: root.title
+    _no_ripple_effect: True
 
-        IconLeftWidget:
-            id: radio_icon
-            icon: "radiobox-blank"
-            on_release: root.complete()
-        Container:
-            id: right_container
-            MDIconButton:
-                icon: "chevron-up"
-            MDIconButton:
-                icon: "chevron-down"
-            MDIconButton:
-                id: menu_button
-                icon: "dots-vertical"
-                on_release: root.menu.open()
+#    md_bg_color: app.theme_cls.bg_dark
+    IconLeftWidget:
+        id: radio_icon
+        icon: "radiobox-blank"
+        on_release: root.complete()
+    Container:
+        id: right_container
+        MDIconButton:
+            icon: "chevron-up"
+            on_release: root.move_task("up")
+        MDIconButton:
+            icon: "chevron-down"
+            on_release: root.move_task("down")
+        MDIconButton:
+            id: menu_button
+            icon: "dots-vertical"
+            on_release: root.menu.open()
     MDChip:
         id: deadline_box
-        pos_hint: {"x": 0.05}
+        pos_hint: {"x": 0.1, "y": 0.05}
         color: app.theme_cls.primary_color
-    MDSeparator:
-        color: app.theme_cls.primary_color
-        size_hint_x: 0.95
-        pos_hint: {"x": 0.05}
+#    MDSeparator:
+#        color: app.theme_cls.primary_color
+#        size_hint_x: 0.95
+#        pos_hint: {"x": 0.05}

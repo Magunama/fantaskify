@@ -1,6 +1,3 @@
-#:include content/objects/task.kv
-#:include content/objects/note.kv
-
 <NewNoteDialogScreen>
     md_bg_color: app.theme_cls.bg_dark
     orientation: "vertical"
@@ -39,7 +36,6 @@
 
 <NewTaskDialogScreen>
     md_bg_color: app.theme_cls.bg_dark
-    orientation: "vertical"
     size_hint_y: None
     height: "200dp"
     font_size: "30sp"
@@ -47,7 +43,7 @@
     MDTextField:
         id: title_field
         size_hint: 0.6, 0.3
-        pos_hint: {"x": 0.05, "y": 0.6}
+        pos_hint: {"x": 0.05, "top": 0.95}
         required: True
         hint_text: "Task title"
         helper_text: "Required"
@@ -56,11 +52,12 @@
         color_mode: "primary"
         mode: "fill"
         on_text_validate: root.text_field_validate(self)
-    MDRectangleFlatButton:
+    MDRectangleFlatIconButton:
         id: date_button
         text: "Date"
+        icon: "calendar-blank"
         size_hint: 0.3, 0.2
-        pos_hint: {"x": 0.05, "y": 0.3}
+        pos_hint: {"x": 0.05, "top": 0.6}
         on_release: root.show_date_picker()
     MDRectangleFlatButton:
         id: reset_date_button
@@ -68,14 +65,15 @@
         text: "x"
         text_color: 1, 0, 0, 1
         size_hint: 0.05, 0.2
-        pos_hint: {"x": 0.3, "y": 0.3}
+        pos_hint: {"x": 0.3, "top": 0.6}
         disabled: True
         on_release: root.reset_date_picker()
-    MDRectangleFlatButton:
+    MDRectangleFlatIconButton:
         id: time_button
         text: "Time"
+        icon: "progress-clock"
         size_hint: 0.2, 0.2
-        pos_hint: {"x": 0.40, "y": 0.3}
+        pos_hint: {"x": 0.40, "top": 0.6}
         on_release: root.show_time_picker()
     MDRectangleFlatButton:
         id: reset_time_button
@@ -83,12 +81,49 @@
         text: "x"
         text_color: 1, 0, 0, 1
         size_hint: 0.05, 0.2
-        pos_hint: {"x": 0.55, "y": 0.3}
+        pos_hint: {"x": 0.55, "top": 0.6}
         disabled: True
         on_release: root.reset_time_picker()
+    MDLabel:
+        halign: "center"
+        pos_hint: {"x": 0.05, "top": 0.25}
+        size_hint: 0.1, 0.1
+        text: "Priority: "
+    MDSlider:
+        id: priority_slider
+        color: app.theme_cls.primary_color
+        pos_hint: {"x": 0.15, "center_y": 0.2}
+        size_hint_x: 0.45
+        size_hint_y: 0.2
+        min: 0
+        max: 5
+        value: 0
     MDIconButton:
         icon: "send"
         text_color: 1, 1, 1, 1
         md_bg_color: app.theme_cls.primary_color
-        pos_hint: {"x": 0.8, "y": 0.1}
+        pos_hint: {"right": 0.9, "y": 0.1}
+        on_release: root.confirm_button_release()
+
+<NewCategoryDialogScreen>
+    title_field: title_field
+    md_bg_color: app.theme_cls.bg_dark
+    size_hint_y: None
+    height: "60dp"
+    font_size: "30sp"
+
+    MDTextField:
+        id: title_field
+        size_hint: 0.8, 1
+        pos_hint: {"x": 0.05}
+        required: True
+        hint_text: "Category title"
+        helper_text: "Required"
+        helper_text_mode: "on_error"
+#        active_line: False
+        color_mode: "primary"
+        mode: "fill"
+    MDIconButton:
+        icon: "send"
+        md_bg_color: app.theme_cls.primary_color
         on_release: root.confirm_button_release()

@@ -2,9 +2,16 @@
 #:include content/side_menu.kv
 
 <Home>
+    screen_manager: screen_manager
+    side_menu: side_menu
     MDNavigationLayout:
+        PageBar:
+            id: toolbar
         ScreenManager:
+            toolbar: toolbar
             id: screen_manager
+            size_hint_y: None
+            height: root.height - toolbar.height
             Notes:
                 id: notes
             Today:
@@ -18,3 +25,12 @@
                 id: side_menu
                 nav_drawer: nav_drawer
                 screen_manager: screen_manager
+
+<Main>
+    screen_manager: screen_manager
+    home: home
+    ScreenManager:
+        id: screen_manager
+        Home:
+            id: home
+            name: "Home"

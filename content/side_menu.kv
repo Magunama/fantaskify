@@ -5,7 +5,7 @@
         spacing: "8dp"
 
         AnchorLayout:
-            pos_hint: {"y": 0.9}
+            pos_hint: {"top": 1}
             anchor_x: "left"
             size_hint_y: None
             height: avatar.height
@@ -40,13 +40,33 @@
                     text: "Notes"
                     on_press:
                         root.switch_screen("Notes")
+                    divider: "Inset"
 
                 OneLineListItem:
                     text: "Today's Tasks"
                     on_press:
                         root.switch_screen("Today")
-
+                    divider: "Inset"
                 OneLineListItem:
                     text: "All Tasks"
                     on_press:
                         root.switch_screen("Tasks")
+                MDSeparator:
+                    color: app.theme_cls.primary_color
+                OneLineIconListItem:
+                    text: "Settings"
+                    divider: "Inset"
+                    on_press: root.settings()
+                    IconLeftWidget:
+                        icon: "cog"
+                        _no_ripple_effect: True
+                        on_release: root.settings()
+                OneLineIconListItem:
+                    text: "Exit"
+                    on_press: app.stop()
+                    IconLeftWidget:
+                        icon: "exit-to-app"
+                        _no_ripple_effect: True
+                        on_release: app.stop()
+                MDSeparator:
+                    color: app.theme_cls.primary_color

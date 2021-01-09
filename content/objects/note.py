@@ -29,7 +29,7 @@ class Note(MDCard):
 
     def destroy(self):
         app = App.get_running_app()
-        notes_page = app.root.ids.notes
+        notes_page = app.root.home.ids.notes
         notes_box = notes_page.ids.container
         notes_list = notes_box.ids.list
         notes_list.remove_widget(self)

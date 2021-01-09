@@ -1,7 +1,5 @@
-from kivy.app import App
 from kivymd.uix.button import MDFloatingActionButtonSpeedDial
-from kivymd.uix.bottomsheet import MDCustomBottomSheet
-from content.templates.dialogs import NewBottomDialog
+from content.templates.dialogs import NewNoteTaskDialog
 
 
 class NewNoteTaskButton(MDFloatingActionButtonSpeedDial):
@@ -15,4 +13,4 @@ class NewNoteTaskButton(MDFloatingActionButtonSpeedDial):
         }
 
     def callback(self, instance):
-        NewBottomDialog(instance.icon).open()
+        NewNoteTaskDialog(instance.icon).open()
